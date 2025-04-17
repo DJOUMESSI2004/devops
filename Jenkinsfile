@@ -19,8 +19,12 @@ pipeline {
 
         stage('Build with Docker') {
             steps {
-                sh 'docker build -t vite-react-builder .'
-                sh 'docker run --rm -v $(pwd)/dist:/app/dist vite-react-builder'
+                sh '''
+                    docker build -t vite-react-builder .
+                    docker create --name temp-builder vite-react-builder
+                    docker cp temp-builder:/app/dist ./dist
+                    docker rm temp-builder
+                '''
             }
         }
 
