@@ -38,13 +38,7 @@ pipeline {
             steps {
                 sshagent(['vm-ssh-key']) {
                     sh """
-                        scp -o StrictHostKeyChecking=no $ZIP_FILE $VM_USER@$VM_IP:C:/deploy/
-                        ssh $VM_USER@$VM_IP "
-                            powershell -Command \"
-                                Expand-Archive -Path 'C:\\deploy\\$ZIP_FILE' -DestinationPath '$VM_PATH' -Force
-                                iisreset
-                            \"
-                        "
+                        scp $ZIP_FILE $VM_USER@$VM_IP:C:/deploy/
                     """
                 }
             }
