@@ -6,7 +6,7 @@ pipeline {
         BUILD_DIR = "dist"
         ZIP_FILE = "app.zip"
         VM_USER = "Administrator"
-        VM_IP = "192.168.56.101"
+        VM_IP = "10.210.64.63"
         VM_PATH = "C:/inetpub/wwwroot"
     }
 
