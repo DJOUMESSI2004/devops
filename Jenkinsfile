@@ -20,17 +20,27 @@ pipeline {
         stage('Build with Docker') {
             steps {
                 sh '''
-                    docker build -t my-build-app .
-                    docker create --name temp-builder my-build-app
-                    docker cp temp-builder:/app/dist ./dist
-                    docker rm temp-builder
-                '''
+            # Build the Docker image
+            docker build -t my-build-app .
+
+            # Remove any existing container with the name "temp-builder"
+            docker rm -f temp-builder || true  # || true ensures the command doesn't fail if no container exists
+
+            # Create the container
+            docker create --name temp-builder my-build-app
+
+            # Copy the contents of /app/dist from the container to the Jenkins workspace
+            docker cp temp-builder:/app/dist/. ./dist
+
+            # Remove the container after copying the files
+            docker rm temp-builder
+        '''
             }
         }
 
         stage('Package ') {
             steps {
-             sh 'cd dist/dist && zip -r ../../app.zip .'
+                sh 'cd dist/dist && zip -r ../../app.zip .'
             }
         }
 
