@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         APP_NAME = 'vite-react-app'
-        BUILD_DIR = 'webapp'
+        BUILD_DIR = 'dist'
         ZIP_FILE = 'app.zip'
         VM_USER = 'Administrator'
         VM_IP = '192.168.1.38'
