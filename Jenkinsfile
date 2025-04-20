@@ -28,7 +28,7 @@ pipeline {
             }
         }
 
-        stage('Package') {
+        stage('Package ') {
             steps {
                 sh 'zip -r app.zip dist'
             }
