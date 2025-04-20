@@ -20,17 +20,17 @@ pipeline {
         stage('Build with Docker') {
             steps {
                 sh '''
-                    docker build -t my-build-app .
+                    docker build -t my-build-app .        // Build the Docker image
                     docker create --name temp-builder my-build-app
-                    docker cp temp-builder:/app/dist ./dist
+                    docker cp temp-builder:/app/dist/. ./dist  // Copy the contents of /app/dist directly to ./dist in the Jenkins workspace
                     docker rm temp-builder
                 '''
             }
         }
 
-        stage('Package ') {
+        stage('Package') {
             steps {
-             sh 'cd dist/dist && zip -r ../../app.zip .'
+                sh 'zip -r app.zip dist'  // Zip the contents of the dist folder without any nested dist folder
             }
         }
 
@@ -38,10 +38,10 @@ pipeline {
             steps {
                 sshagent(['vm-ssh-key']) {
                     sh """
-                scp $ZIP_FILE $VM_USER@$VM_IP:C:/deploy/
-                ssh $VM_USER@$VM_IP powershell -Command \\
-                    "\\\$ProgressPreference = 'SilentlyContinue'; Expand-Archive -Path 'C:\\\\deploy\\\\$ZIP_FILE' -DestinationPath 'C:\\\\inetpub\\\\wwwroot' -Force; iisreset"
-            """
+                    scp $ZIP_FILE $VM_USER@$VM_IP:C:/deploy/
+                    ssh $VM_USER@$VM_IP powershell -Command \\
+                        "\\\$ProgressPreference = 'SilentlyContinue'; Expand-Archive -Path 'C:\\\\deploy\\\\$ZIP_FILE' -DestinationPath 'C:\\\\inetpub\\\\wwwroot' -Force; iisreset"
+                    """
                 }
             }
         }
