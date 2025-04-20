@@ -20,8 +20,8 @@ pipeline {
         stage('Build with Docker') {
             steps {
                 sh '''
-                    docker build -t vite-react-builder .
-                    docker create --name temp-builder vite-react-builder
+                    docker build -t my-build-app .
+                    docker create --name temp-builder my-build-app
                     docker cp temp-builder:/app/dist ./dist
                     docker rm temp-builder
                 '''
