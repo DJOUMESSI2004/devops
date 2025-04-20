@@ -20,7 +20,7 @@ pipeline {
         stage('Build with Docker') {
             steps {
                 sh '''
-                    docker build -t my-build-app .        // Build the Docker image
+                    docker build -t my-build-app .
                     docker create --name temp-builder my-build-app
                     docker cp temp-builder:/app/dist/. ./dist  // Copy the contents of /app/dist directly to ./dist in the Jenkins workspace
                     docker rm temp-builder
