@@ -2,12 +2,12 @@ pipeline {
     agent any
 
     environment {
-        APP_NAME = "vite-react-app"
-        BUILD_DIR = "dist"
-        ZIP_FILE = "app.zip"
-        VM_USER = "Administrator"
-        VM_IP = "192.168.1.38"
-        VM_PATH = "C:/inetpub/wwwroot"
+        APP_NAME = 'vite-react-app'
+        BUILD_DIR = 'dist'
+        ZIP_FILE = 'app.zip'
+        VM_USER = 'Administrator'
+        VM_IP = '192.168.1.38'
+        VM_PATH = 'C:/inetpub/wwwroot'
     }
 
     stages {
@@ -38,14 +38,10 @@ pipeline {
             steps {
                 sshagent(['vm-ssh-key']) {
                     sh """
-                        scp $ZIP_FILE $VM_USER@$VM_IP:C:/deploy/
-                        ssh $VM_USER@$VM_IP "
-                            powershell -Command \"
-                                Expand-Archive -Path 'C:\\deploy\\$ZIP_FILE' -DestinationPath '$VM_PATH' -Force
-                                iisreset
-                            \"
-                        "
-                    """
+                scp $ZIP_FILE $VM_USER@$VM_IP:C:/deploy/
+                ssh $VM_USER@$VM_IP \\
+                    powershell -Command \\"Expand-Archive -Path 'C:\\\\deploy\\\\$ZIP_FILE' -DestinationPath '$VM_PATH' -Force; iisreset\\"
+            """
                 }
             }
         }
