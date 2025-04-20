@@ -30,7 +30,7 @@ pipeline {
 
         stage('Package') {
             steps {
-                sh 'zip -r app.zip .'
+                sh 'zip -r app.zip dist'
             }
         }
 
