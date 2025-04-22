@@ -56,10 +56,5 @@ pipeline {
             }
         }
 
-        stage('Clean up') {
-            steps {
-                sh 'rm -f app.zip'
-            }
-        }
     }
 }
