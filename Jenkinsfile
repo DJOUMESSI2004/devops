@@ -6,7 +6,7 @@ pipeline {
         BUILD_DIR = 'dist'
         ZIP_FILE = 'app.zip'
         VM_USER = 'Administrator'
-        VM_IP = '192.168.1.38'
+        VM_IP = '10.210.64.63'
         VM_PATH = 'C:/inetpub/wwwroot'
     }
 
@@ -53,6 +53,12 @@ pipeline {
                     "\\\$ProgressPreference = 'SilentlyContinue'; Expand-Archive -Path 'C:\\\\deploy\\\\$ZIP_FILE' -DestinationPath 'C:\\\\inetpub\\\\wwwroot' -Force; iisreset"
             """
                 }
+            }
+        }
+
+        stage("Clean up"){
+            steps {
+                sh 'rm -f app.zip'
             }
         }
     }
