@@ -57,7 +57,7 @@ pipeline {
                     sh """
                 scp $ZIP_FILE $VM_USER@$VM_IP:C:/deploy/
                 ssh $VM_USER@$VM_IP powershell -Command \\
-                    "\\\$ProgressPreference = 'SilentlyContinue'; Expand-Archive -Path 'C:\\\\deploy\\\\$ZIP_FILE' -DestinationPath 'C:\\\\inetpub\\\\wwwroot\\\newApp' -Force; iisreset"
+                    "\\\$ProgressPreference = 'SilentlyContinue'; Expand-Archive -Path 'C:\\\\deploy\\\\$ZIP_FILE' -DestinationPath 'C:\\\\inetpub\\\\wwwroot\\\\newApp' -Force; iisreset"
             """
                 }
             }
