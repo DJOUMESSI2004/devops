@@ -60,6 +60,20 @@ This project contains the following skills :
 1. make sure OpenSSH is install in your VM host if not, go to settings/apps/features then app a new openssh server
 2. now check the installation of openssh with poweshell as admin with the cmd : ```Get-WindowsCapability-Online | Where-Object name-like 'OpenSSH*'```
 3. if install, automatically run the ssh server with the cmd : ``` Set-Service -name sshd -Startuptype 'Automatic' ```
+4. open your authorized_keys file and in the folder .ssh add your jenkins public key
+5. open the administration_authorized_keys in the file the directory ssh then add you pub key
+6. then test your connection form the jenkins terminal in your docker ``` ssh username@vm_ip ```
+
+## Step 7 
+*create a multibranch pipeline*
+1. create a new multibranch pipeline
+2. configure the credenticials (git cred), your clonning brach etc...
+3. then save
+
+## Step 8
+*create jenkins file and dockerfile*
+see the jenkins file in the repo
+
 
 
 
