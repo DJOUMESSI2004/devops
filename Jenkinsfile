@@ -11,17 +11,18 @@ pipeline {
     }
 
     stages {
+
+        stage('Clean Workspace') {
+            steps {
+                deleteDir()
+            }
+        }
+
         stage('Clone Repo') {
             steps {
                 git 'https://github.com/DJOUMESSI2004/devops.git'
             }
         }
-
-        // stage('Clean Workspace') {
-        //     steps {
-        //         deleteDir()
-        //     }
-        // }
 
         stage('Build with Docker') {
             steps {
@@ -45,8 +46,8 @@ pipeline {
         }
 
         stage('Package') {
-            steps {
-                sh 'cd dist && zip -r ../../app.zip .'
+           steps {
+                sh 'cd dist && zip -r ../app.zip .'
             }
         }
 
