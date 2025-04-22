@@ -29,8 +29,8 @@ pipeline {
             # Create the container
             docker create --name temp-builder my-build-app
 
-            # Copy the contents of /app/dist from the container to the Jenkins workspace
-            docker cp temp-builder:/app/dist/. ./dist
+            # Copy build output from container to host
+            docker cp temp-builder:/app/dist ./dist
 
             # Remove the container after copying the files
             docker rm temp-builder
@@ -55,6 +55,5 @@ pipeline {
                 }
             }
         }
-
     }
 }
