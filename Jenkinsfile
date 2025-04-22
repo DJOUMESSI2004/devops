@@ -17,6 +17,12 @@ pipeline {
             }
         }
 
+        stage('Clean Workspace') {
+            steps {
+                deleteDir()
+            }
+        }
+
         stage('Build with Docker') {
             steps {
                 sh '''
