@@ -1,11 +1,10 @@
 pipeline {
   agent any
   stages {
-    stage('Docker Test') {
+    stage('Verify Docker Access') {
       steps {
         sh 'docker run --rm hello-world'
       }
     }
-    // ...etc.
   }
 }
